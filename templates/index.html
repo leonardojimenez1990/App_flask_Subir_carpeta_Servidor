@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Seleccionar carpeta</title>
+    <style>
+      /* Estilos CSS para la página */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      #container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 46px;
+        text-align: center;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #0069d9;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Seleccionar carpeta</h1>
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+      <form method="post">
+        <button type="submit">Seleccionar</button>
+    </form>
+      <p>Ruta de la carpeta seleccionada: {{ folder_path }}</p>     
+      {% if files %}
+        <h2>Archivos subidos:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre de archivo</th>
+              <th>Ruta de archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for index in range(files|length) %}
+            <tr>
+              <td><a href="{{ url_for("leer_archivo", nombre_archivo=files[index]) }}">{{ files[index] }}</a></td>
+              <td>{{ folder[index] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </body>
+</html>
